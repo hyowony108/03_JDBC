@@ -41,14 +41,22 @@ public class UserService {
 	}
 
 
-	public User insertUser(String id, String pw, String name) {
+	public int insertUser(String id, String pw, String name) {
 		
 		Connection conn = JDBCTemplate.getConnertion();
 				
 		int res = dao.insertUser(conn, id, pw, name);
 		
+		if(res>0) {
+			JDBCTemplate.commit(conn);
+			
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
 		
-		return null;
+		JDBCTemplate.close(conn);
+		
+		return res;
 	}
 
 

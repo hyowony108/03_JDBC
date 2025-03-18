@@ -87,8 +87,8 @@ public class UserDAO {
 		
 		try {
 			String sql = """
-					INSET INTO TB_USER
-					VALUES(SEQ_USER_NO.NEXTVAL, ?, ?, ?, DEFAULT );
+					INSERT INTO TB_USER
+					VALUES(SEQ_USER_NO.NEXTVAL, ?, ?, ?, DEFAULT )
 					""";
 			
 			pstmt = conn.prepareStatement(sql);

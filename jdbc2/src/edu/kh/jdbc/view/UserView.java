@@ -106,6 +106,12 @@ public class UserView {
 		System.out.print("유저 이름 : ");
 		String name = sc.next();
 		
-		User user = service.insertUser(id, pw, name);
+		int res = service.insertUser(id, pw, name);
+		
+		if(res > 0) {
+			System.out.println("등록 완료");
+		} else {
+			System.out.println("등록 실패");
+		}
 	}
 }
