@@ -96,7 +96,7 @@ public class JDBCExample5 {
 				System.out.println(name + "님이 추가되었습니다.");
 				conn.commit(); // COMMIT 수행 -> DB에 INSERT 영구 반영
 				
-			}else { //INSERT 성공 시
+			}else { //INSERT 실패 시
 				System.out.println("추가 실패");
 				conn.rollback();
 				

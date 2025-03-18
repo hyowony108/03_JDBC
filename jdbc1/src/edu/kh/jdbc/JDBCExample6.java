@@ -40,35 +40,32 @@ public class JDBCExample6 {
 			System.out.print("비밀번호 : ");
 			String pw = sc.nextLine();
 			
+			System.out.print("수정할 이름 : ");
+			String name = sc.nextLine();
+			
 			String sql = """
-					SELECT USER_ID, USER_PW
-					FROM TB_USER
+					UPDATE TB_USER
+					SET USER_NAME = ?
 					WHERE USER_ID = ? AND USER_PW = ?
 					""";
-			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, pw);
+			
+			pstmt.setString(1, name);
+			pstmt.setString(2, id);
+			pstmt.setString(3, pw);
 			
 			conn.setAutoCommit(false);
 			
-			ResultSet result = pstmt.executeQuery();
+			int res = pstmt.executeUpdate();
 			
-			if(result != null) {
+			
+			if(res > 0) {
+				System.out.println("수정 성공");
+				conn.commit(); // COMMIT 수행 -> DB에 INSERT 영구 반영
+				
+			}else { 
+				System.out.println("아이디 또는 비밀번호 불일치");
 				conn.rollback();
-				
-				System.out.print("이름 : ");
-				String name = sc.nextLine();
-				
-				String sql2 = """
-						INSERT INTO TB_USER 
-						VALUES(SEQ_USER_NO.NEXTVAL, ?, ?, ?, DEFAULT )
-						""";
-				pstmt = conn.prepareStatement(sql2);
-				pstmt.setString(1, id);
-				pstmt.setString(2, pw);
-				pstmt.setString(3, name);
-				
 				
 			}
 			
@@ -76,7 +73,10 @@ public class JDBCExample6 {
 			e.printStackTrace();
 		}finally {
 			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
 				
+				if(sc != null) sc.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
