@@ -8,8 +8,8 @@ public class Run {
 		
 		UserView view = new UserView();
 		//view.test();
-		view.insertUser();
-		//view.mainMenu();
+		//view.insertUser();
+		view.mainMenu();
 
 	}
 
