@@ -68,7 +68,7 @@ public void mainMenu() {
 		
 	} // mainMenu() 종료
 
-private void insertStudent() {
+private void insertStudent() throws Exception {
 
 	System.out.println("\n=== 1. 학생 등록 ===\n");
 	

@@ -12,7 +12,7 @@ public class StudentService {
 	
 	private StudentDAO dao = new StudentDAO();
 
-	public int insertStudent(Student std) {
+	public int insertStudent(Student std) throws Exception {
 
 		Connection conn = JDBCTemplate.getConnertion();
 		
